@@ -27,15 +27,16 @@
         <Dialog class="ml-3 mb-4" />
       </v-layout>
 
-      <v-card class="pa-0 ma-0" flat v-for="todo in order" :key="todo.title">
+      <transition-group enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+        <v-card class="pa-0 ma-0" flat v-for="todo in order" :key="todo.title">
         <v-card-text class="ma-0 pa-0">
           <v-layout class="my-2" row wrap>
-            <v-flex class="px-6 py-2" xs12 sm5 md5 lg5 xl5>
+            <v-flex class="px-6 py-2 pt-4" xs12 sm5 md5 lg5 xl5>
               <div class="caption grey--text text--darken-2">
                 {{ todo.title }}
               </div>
             </v-flex>
-            <v-flex class="px-6 py-2" xs6 sm3 md3 lg3 xl3>
+            <v-flex class="px-6 py-2 pt-4" xs6 sm3 md3 lg3 xl3>
               <div class="caption grey--text text--darken-2">
                 {{ todo.date }}
               </div>
@@ -43,7 +44,7 @@
             <v-flex xs3 sm3 md3 lg3 xl3>
               <v-layout class="pr-3" justify-end> </v-layout>
             </v-flex>
-            <v-flex class="pr-4" xs1 sm1 md1 lg1 xl1>
+            <v-flex class="pr-4 pt-2" xs1 sm1 md1 lg1 xl1>
               <v-layout justify-end>
                 <v-btn depressed @click="deleteTodo(todo)" icon>
                   <v-icon class="red--text">mdi-minus-circle</v-icon>
@@ -54,6 +55,7 @@
           <v-divider></v-divider>
         </v-card-text>
       </v-card>
+      </transition-group>
     </v-container>
   </v-container>
 </template>
@@ -120,6 +122,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url("../../assets/animate.css");
 .completed {
   border-left: 4px solid #3cd1c2;
 }
