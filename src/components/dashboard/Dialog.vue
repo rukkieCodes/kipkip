@@ -34,9 +34,10 @@
             <v-layout row wrap>
               <v-flex xs12 sm12 md12 lg12 xl12>
                 <v-text-field
+                  color="#9652ff"
                   v-model="todo.title"
                   label="Task"
-                  prepend-inner-icon="mdi-folder"
+                  prepend-inner-icon="mdi-access-point"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 sm12 md12 lg12 xl12>
@@ -71,12 +72,12 @@
             <v-btn
               :loading="loading"
               class="text-capitalize"
-              text
-              color="primary"
+              color="#9652ff"
+              fab
               @click="submit"
+              small
             >
-              <v-icon left>mdi-pencil</v-icon>
-              <span>Add Todo</span>
+              <v-icon class="white--text">mdi-plus</v-icon>
             </v-btn>
           </v-layout>
         </v-card-actions>
@@ -94,7 +95,7 @@ export default {
       title: null,
       menu2: false,
       date: new Date().toISOString().substr(0, 10),
-      createdAt: new Date(),
+      createdAt: new Date().toISOString().substr(0, 10),
       author: fb.auth().currentUser.uid,
       cheched: null
     },

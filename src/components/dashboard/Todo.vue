@@ -27,34 +27,37 @@
         <Dialog class="ml-3 mb-4" />
       </v-layout>
 
-      <transition-group enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+      <transition-group
+        enter-active-class="animated bounceInUp"
+        leave-active-class="animated bounceOutDown"
+      >
         <v-card class="pa-0 ma-0" flat v-for="todo in order" :key="todo.title">
-        <v-card-text class="ma-0 pa-0">
-          <v-layout class="my-2" row wrap>
-            <v-flex class="px-6 py-2 pt-4" xs12 sm5 md5 lg5 xl5>
-              <div class="caption grey--text text--darken-2">
-                {{ todo.title }}
-              </div>
-            </v-flex>
-            <v-flex class="px-6 py-2 pt-4" xs6 sm3 md3 lg3 xl3>
-              <div class="caption grey--text text--darken-2">
-                {{ todo.date }}
-              </div>
-            </v-flex>
-            <v-flex xs3 sm3 md3 lg3 xl3>
-              <v-layout class="pr-3" justify-end> </v-layout>
-            </v-flex>
-            <v-flex class="pr-4 pt-2" xs1 sm1 md1 lg1 xl1>
-              <v-layout justify-end>
-                <v-btn depressed @click="deleteTodo(todo)" icon>
-                  <v-icon class="red--text">mdi-minus-circle</v-icon>
-                </v-btn>
-              </v-layout>
-            </v-flex>
-          </v-layout>
-          <v-divider></v-divider>
-        </v-card-text>
-      </v-card>
+          <v-card-text class="ma-0 pa-0">
+            <v-layout @dblclick="complete(todo)" class="my-2" row wrap>
+              <v-flex class="px-6 py-2 pt-4" xs12 sm5 md5 lg5 xl5>
+                <div class="caption grey--text text--darken-2">
+                  {{ todo.title }}
+                </div>
+              </v-flex>
+              <v-flex class="px-6 py-2 pt-4" xs6 sm3 md3 lg3 xl3>
+                <div class="caption grey--text text--darken-2">
+                  {{ todo.date }}
+                </div>
+              </v-flex>
+              <v-flex xs3 sm3 md3 lg3 xl3>
+                <v-layout class="pr-3" justify-end> </v-layout>
+              </v-flex>
+              <v-flex class="pr-4 pt-2" xs1 sm1 md1 lg1 xl1>
+                <v-layout justify-end>
+                  <v-btn depressed @click="deleteTodo(todo)" icon>
+                    <v-icon class="red--text">mdi-minus-circle</v-icon>
+                  </v-btn>
+                </v-layout>
+              </v-flex>
+            </v-layout>
+            <v-divider></v-divider>
+          </v-card-text>
+        </v-card>
       </transition-group>
     </v-container>
   </v-container>
@@ -88,6 +91,14 @@ export default {
   },
 
   methods: {
+    complete(doc){
+      const docDate = doc.date;
+      const presentDate = new Date().toISOString().substr(0, 10);
+
+      console.log("docDate: ", docDate);
+      console.log("presentDate: ", presentDate);
+    },
+
     deleteTodo(doc) {
       this.$firestore.todos
         .doc(doc[".key"])
@@ -117,7 +128,7 @@ export default {
           this.multi_line = true;
         });
     }
-  }
+  },
 };
 </script>
 

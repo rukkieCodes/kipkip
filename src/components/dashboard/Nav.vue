@@ -9,11 +9,6 @@
         <p class="my-2 mx-2 grey--text text--darken-3">KipKip</p>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
-
-      <v-btn @click="logout" text>
-        <span left class="text-capitalize">Sign Out</span>
-        <v-icon right>mdi-location-exit</v-icon>
-      </v-btn>
     </v-toolbar>
 
     <v-navigation-drawer v-model="drawer" app color="#9652ff">
@@ -29,7 +24,9 @@
           <v-list-item-title class="white--text caption">
             <v-layout class="ml-5" justify-center row wrap>
               <v-flex xs12 sm12 md12 lg12 xl12><span>Loged in as</span></v-flex>
-              <v-flex xs12 sm12 md12 lg12 xl12><span>{{ email }}</span></v-flex>
+              <v-flex xs12 sm12 md12 lg12 xl12
+                ><span>{{ email }}</span></v-flex
+              >
             </v-layout>
           </v-list-item-title>
         </v-list-item-content>
@@ -58,6 +55,14 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn color="white" block @click="logout" text>
+            <v-icon left>mdi-power</v-icon>
+            <span right class="text-capitalize">Sign Out</span>
+          </v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
   </nav>
 </template>
