@@ -31,28 +31,35 @@
         enter-active-class="animated bounceInUp"
         leave-active-class="animated bounceOutDown"
       >
-        <v-card :class="{ completed : taskCompleted }" class="pa-0 ma-0" flat v-for="todo in order" :key="todo.title">
+        <v-card
+          class="pa-0 ma-0"
+          flat
+          v-for="todo in order"
+          :key="todo.title"
+          :class="`todo ${todo.checked}`"
+        >
           <v-card-text class="ma-0 pa-0">
             <v-layout class="my-2" row wrap>
-              <v-flex class="pl-5 py-2 pt-4" xs1 sm1 md1 lg1 xl1>
-                <v-btn @click="complete(todo)" small icon>
-                  <v-icon>mdi-alarm-light</v-icon>
-                </v-btn>
+              <v-flex xs1 sm1 md1 lg1 xl1>
+                <v-layout class="pl-6 pt-6" justify-start>
+                  <v-btn left @click="complete(todo)" x-small icon>
+                    <v-icon>mdi-alarm-light</v-icon>
+                  </v-btn>
+                </v-layout>
               </v-flex>
-              <v-flex class="py-2 pt-4" xs11 sm4 md4 lg4 xl4>
-                <div class="caption grey--text text--darken-2">
+              <v-flex class="pt-4" xs8 sm4 md4 lg4 xl4>
+                <div class="caption">Task</div>
+                <div class="grey--text text--darken-2">
                   {{ todo.title }}
                 </div>
               </v-flex>
-              <v-flex class="px-6 py-2 pt-4" xs6 sm3 md3 lg3 xl3>
-                <div class="caption grey--text text--darken-2">
+              <v-flex class="px-6 py-2 pt-4" xs3 sm3 md3 lg3 xl3>
+                <div class="caption">Due By</div>
+                <div class="grey--text text--darken-2">
                   {{ todo.date }}
                 </div>
               </v-flex>
-              <v-flex xs3 sm3 md3 lg3 xl3>
-                <v-layout class="pr-3" justify-end> </v-layout>
-              </v-flex>
-              <v-flex class="pr-4 pt-2" xs1 sm1 md1 lg1 xl1>
+              <v-flex class="pr-4 pt-2" xs2 sm2 md2 lg2 xl2>
                 <v-layout justify-end>
                   <v-btn depressed @click="deleteTodo(todo)" icon>
                     <v-icon class="red--text">mdi-minus-circle</v-icon>
@@ -97,11 +104,11 @@ export default {
   },
 
   methods: {
-    complete(doc){
+    complete(doc) {
       console.log(doc[".key"]);
       this.$firestore.todos.doc(doc[".key"]).update({
         checked: true
-      })
+      });
     },
 
     deleteTodo(doc) {
@@ -135,34 +142,33 @@ export default {
     }
   },
 
-  created(){
-    db.collection("todos").where("checked", "==", true)
-    .get()
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
-            console.log(doc.data());
-            if(doc.data().checked == true){
-              console.log("Can now color");
-              this.taskCompleted = true;
-            }
-            if(doc.data().checked == false){
-              console.log("Do not color");
-              this.taskCompleted = false;
-            }
+  created() {
+    this.$firestore.todos
+      .where("checked", "==", true)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          // doc.data() is never undefined for query doc snapshots
+          // console.log(doc.id, " => ", doc.data());
+          console.log(doc.data());
+          if (doc.data().checked == true) {
+            this.taskCompleted = true;
+          }
+          if (doc.data().checked == false) {
+            this.taskCompleted = false;
+          }
         });
-    })
-    .catch((error) => {
+      })
+      .catch(error => {
         console.log("Error getting documents: ", error);
-    });
+      });
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import url("../../assets/animate.css");
-.completed {
+.todo.true {
   border-left: 4px solid #3cd1c2;
 }
 .ongoing {
