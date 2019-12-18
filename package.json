@@ -10,7 +10,9 @@
   "dependencies": {
     "@codekraft-studio/vue-animated": "^0.1.5",
     "core-js": "^3.3.2",
+    "date-fns": "^2.8.1",
     "firebase": "^7.4.0",
+    "moment": "^2.24.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-firestore": "^0.3.22",
