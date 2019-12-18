@@ -97,7 +97,7 @@ export default {
       date: new Date().toISOString().substr(0, 10),
       createdAt: new Date().toISOString().substr(0, 10),
       author: fb.auth().currentUser.uid,
-      checked: false
+      state: false
     },
     snackbar: false,
     text: "",

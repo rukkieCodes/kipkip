@@ -36,7 +36,7 @@
           flat
           v-for="todo in order"
           :key="todo.title"
-          :class="`todo ${todo.checked}`"
+          :class="`todo ${todo.state}`"
         >
           <v-card-text class="ma-0 pa-0">
             <v-layout class="my-2" row wrap>
@@ -107,7 +107,7 @@ export default {
     complete(doc) {
       console.log(doc[".key"]);
       this.$firestore.todos.doc(doc[".key"]).update({
-        checked: true
+        state: "completed"
       });
     },
 
@@ -144,17 +144,17 @@ export default {
 
   created() {
     this.$firestore.todos
-      .where("checked", "==", true)
+      .where("state", "==", "completed")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           // doc.data() is never undefined for query doc snapshots
           // console.log(doc.id, " => ", doc.data());
           console.log(doc.data());
-          if (doc.data().checked == true) {
+          if (doc.data().state == "completed") {
             this.taskCompleted = true;
           }
-          if (doc.data().checked == false) {
+          if (doc.data().state != "completed") {
             this.taskCompleted = false;
           }
         });
@@ -168,7 +168,7 @@ export default {
 
 <style lang="scss" scoped>
 @import url("../../assets/animate.css");
-.todo.true {
+.todo.completed {
   border-left: 4px solid #3cd1c2;
 }
 .ongoing {
