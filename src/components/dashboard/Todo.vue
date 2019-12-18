@@ -44,7 +44,7 @@
               <v-flex xs1 sm1 md1 lg1 xl1>
                 <v-layout class="pl-6 pt-4" justify-start>
                   <v-btn left @click="complete(todo)" x-small icon>
-                    <v-icon>mdi-alarm-light</v-icon>
+                    <v-icon>mdi-clipboard-list</v-icon>
                   </v-btn>
                 </v-layout>
               </v-flex>
@@ -59,12 +59,17 @@
                 </div>
               </v-flex>
               <v-flex xs1 sm1 md1 lg1 xl1>
-                <v-chip small ripple :class="`${todo.state} white--text caption my-2`">{{ todo.state }}</v-chip>
+                <v-chip
+                  small
+                  ripple
+                  :class="`${todo.state} white--text caption my-2`"
+                  >{{ todo.state }}</v-chip
+                >
               </v-flex>
               <v-flex class="pr-4 pt-2" xs2 sm2 md2 lg2 xl2>
                 <v-layout justify-end>
                   <v-btn depressed @click="deleteTodo(todo)" icon>
-                    <v-icon class="red--text">mdi-minus-circle</v-icon>
+                    <v-icon class="red--text text--darken-5">mdi-minus-circle</v-icon>
                   </v-btn>
                 </v-layout>
               </v-flex>
@@ -146,19 +151,28 @@ export default {
 
   created() {
     this.$firestore.todos
-      .where("state", "==", "completed")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           // doc.data() is never undefined for query doc snapshots
           // console.log(doc.id, " => ", doc.data());
-          console.log(doc.data());
-          if (doc.data().state == "completed") {
-            this.taskCompleted = true;
+          let docDate = doc.data().date;
+          // // console.log("docDate", docDate);
+
+          let currentDate = new Date().toISOString().substr(0, 10);
+          // // console.log("currentDate", currentDate);
+
+          if (docDate < currentDate) {
+            console.log("Task is Over due");
+            console.log(doc.id);
+            this.$firestore.todos.doc(doc.id).update({
+              state: "overdue"
+            });
           }
-          if (doc.data().state != "completed") {
-            this.taskCompleted = false;
-          }
+          // console.log(doc.id);
+          // this.$firestore.todos.doc(doc.id).update({
+          //   state: "overdue"
+          // })
         });
       })
       .catch(error => {
@@ -180,12 +194,15 @@ export default {
   border-left: 4px solid #f83e70;
 }
 
-.todo{
-  .v-chip.completed{
-  background: #3cd1c2;
-}
-.v-chip.ongoing{
-  background: #ffaa2c;
-}
+.todo {
+  .v-chip.completed {
+    background: #3cd1c2;
+  }
+  .v-chip.ongoing {
+    background: #ffaa2c;
+  }
+  .v-chip.overdue {
+    background: #f83e70;
+  }
 }
 </style>
