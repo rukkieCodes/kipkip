@@ -37,7 +37,7 @@
                   color="#9652ff"
                   v-model="todo.title"
                   label="Task"
-                  prepend-inner-icon="mdi-access-point"
+                  prepend-inner-icon="mdi-bookmark-check"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 sm12 md12 lg12 xl12>
@@ -97,7 +97,7 @@ export default {
       date: new Date().toISOString().substr(0, 10),
       createdAt: new Date().toISOString().substr(0, 10),
       author: fb.auth().currentUser.uid,
-      cheched: null
+      checked: false
     },
     snackbar: false,
     text: "",

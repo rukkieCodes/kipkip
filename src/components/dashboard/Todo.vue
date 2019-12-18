@@ -31,10 +31,15 @@
         enter-active-class="animated bounceInUp"
         leave-active-class="animated bounceOutDown"
       >
-        <v-card class="pa-0 ma-0" flat v-for="todo in order" :key="todo.title">
+        <v-card :class="{ completed : taskCompleted }" class="pa-0 ma-0" flat v-for="todo in order" :key="todo.title">
           <v-card-text class="ma-0 pa-0">
-            <v-layout @dblclick="complete(todo)" class="my-2" row wrap>
-              <v-flex class="px-6 py-2 pt-4" xs12 sm5 md5 lg5 xl5>
+            <v-layout class="my-2" row wrap>
+              <v-flex class="pl-5 py-2 pt-4" xs1 sm1 md1 lg1 xl1>
+                <v-btn @click="complete(todo)" small icon>
+                  <v-icon>mdi-alarm-light</v-icon>
+                </v-btn>
+              </v-flex>
+              <v-flex class="py-2 pt-4" xs11 sm4 md4 lg4 xl4>
                 <div class="caption grey--text text--darken-2">
                   {{ todo.title }}
                 </div>
@@ -76,7 +81,8 @@ export default {
     snackBtn: null,
     top: null,
     right: null,
-    multi_line: null
+    multi_line: null,
+    taskCompleted: null
   }),
 
   components: {
@@ -92,11 +98,10 @@ export default {
 
   methods: {
     complete(doc){
-      const docDate = doc.date;
-      const presentDate = new Date().toISOString().substr(0, 10);
-
-      console.log("docDate: ", docDate);
-      console.log("presentDate: ", presentDate);
+      console.log(doc[".key"]);
+      this.$firestore.todos.doc(doc[".key"]).update({
+        checked: true
+      })
     },
 
     deleteTodo(doc) {
@@ -129,6 +134,29 @@ export default {
         });
     }
   },
+
+  created(){
+    db.collection("todos").where("checked", "==", true)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            console.log(doc.data());
+            if(doc.data().checked == true){
+              console.log("Can now color");
+              this.taskCompleted = true;
+            }
+            if(doc.data().checked == false){
+              console.log("Do not color");
+              this.taskCompleted = false;
+            }
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+  }
 };
 </script>
 
