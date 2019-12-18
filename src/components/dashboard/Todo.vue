@@ -34,30 +34,32 @@
         <v-card
           class="pa-0 ma-0"
           flat
+          tile
           v-for="todo in order"
           :key="todo.title"
           :class="`todo ${todo.state}`"
         >
           <v-card-text class="ma-0 pa-0">
-            <v-layout class="my-2" row wrap>
+            <v-layout class="my-0" row wrap>
               <v-flex xs1 sm1 md1 lg1 xl1>
-                <v-layout class="pl-6 pt-6" justify-start>
+                <v-layout class="pl-6 pt-4" justify-start>
                   <v-btn left @click="complete(todo)" x-small icon>
                     <v-icon>mdi-alarm-light</v-icon>
                   </v-btn>
                 </v-layout>
               </v-flex>
               <v-flex class="pt-4" xs8 sm4 md4 lg4 xl4>
-                <div class="caption">Task</div>
                 <div class="grey--text text--darken-2">
                   {{ todo.title }}
                 </div>
               </v-flex>
               <v-flex class="px-6 py-2 pt-4" xs3 sm3 md3 lg3 xl3>
-                <div class="caption">Due By</div>
                 <div class="grey--text text--darken-2">
                   {{ todo.date }}
                 </div>
+              </v-flex>
+              <v-flex xs1 sm1 md1 lg1 xl1>
+                <v-chip small ripple :class="`${todo.state} white--text caption my-2`">{{ todo.state }}</v-chip>
               </v-flex>
               <v-flex class="pr-4 pt-2" xs2 sm2 md2 lg2 xl2>
                 <v-layout justify-end>
@@ -171,10 +173,19 @@ export default {
 .todo.completed {
   border-left: 4px solid #3cd1c2;
 }
-.ongoing {
+.todo.ongoing {
   border-left: 4px solid #ffaa2c;
 }
-.overdue {
+.todo.overdue {
   border-left: 4px solid #f83e70;
+}
+
+.todo{
+  .v-chip.completed{
+  background: #3cd1c2;
+}
+.v-chip.ongoing{
+  background: #ffaa2c;
+}
 }
 </style>
