@@ -13,6 +13,16 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-snackbar>
+    <v-alert
+      v-model="alert"
+      border="left"
+      close-text="Close Alert"
+      color="#f83e70"
+      dark
+      dismissible
+    >
+      {{ alertMessage }}
+    </v-alert>
 
     <v-layout class="ml-2" row wrap>
       <v-flex xs12 sm12 md12 lg12 xl12>
@@ -42,9 +52,15 @@
         <v-card-text class="ma-0 pax-1">
           <v-layout class="my-0" row wrap>
             <v-flex xs1 sm1 md1 lg1 xl1>
-              <v-btn class="ma-0 pa-0" left @click="complete(todo)" x-small icon>
-                  <v-icon>mdi-check</v-icon>
-                </v-btn>
+              <v-btn
+                class="ma-0 pa-0"
+                left
+                @click="complete(todo)"
+                x-small
+                icon
+              >
+                <v-icon>mdi-check</v-icon>
+              </v-btn>
             </v-flex>
 
             <v-flex xs4 sm4 md4 lg4 xl4>
@@ -60,17 +76,21 @@
             </v-flex>
 
             <v-flex xs3 sm1 md1 lg1 xl1>
-              <v-chip x-small ripple :class="`${todo.state} white--text caption ma-0 pa-0 px-2 py-2`">
+              <v-chip
+                x-small
+                ripple
+                :class="`${todo.state} white--text caption ma-0 pa-0 px-2 py-2`"
+              >
                 <span class="caption">{{ todo.state }}</span>
               </v-chip>
             </v-flex>
 
             <v-flex xs1 sm1 md1 lg1 xl1>
               <v-btn class="mt-n1" @click="deleteTodo(todo)" icon>
-                  <v-icon small class="red--text text--darken-5"
-                    >mdi-trash-can</v-icon
-                  >
-                </v-btn>
+                <v-icon small class="red--text text--darken-5"
+                  >mdi-trash-can</v-icon
+                >
+              </v-btn>
             </v-flex>
           </v-layout>
           <v-divider></v-divider>
@@ -94,7 +114,9 @@ export default {
     top: null,
     right: null,
     multi_line: null,
-    taskCompleted: null
+    taskCompleted: null,
+    alert: false,
+    alertMessage: ""
   }),
 
   components: {
@@ -111,9 +133,26 @@ export default {
   methods: {
     complete(doc) {
       console.log(doc[".key"]);
-      this.$firestore.todos.doc(doc[".key"]).update({
-        state: "completed"
-      });
+      this.$firestore.todos
+        .doc(doc[".key"])
+        .update({
+          state: "completed"
+        })
+        .then(() => {
+          this.snackbar = true;
+          this.color = "#3cd1c2";
+          this.snackText = "white--text";
+          this.text = "Congratulations, you have completed this task";
+          this.snackBtn = "white";
+        })
+        .catch(error => {
+          const errorMessage = error.message;
+          this.snackbar = true;
+          this.color = "red darken-5";
+          this.snackText = "white--text";
+          this.text = errorMessage;
+          this.snackBtn = "white";
+        });
     },
 
     deleteTodo(doc) {
@@ -160,9 +199,29 @@ export default {
 
           if (docDate < currentDate) {
             //checks if document date is less than current date
-            this.$firestore.todos.doc(doc.id).update({
-              state: "overdue"
-            });
+            this.$firestore.todos
+              .doc(doc.id)
+              .update({
+                state: "overdue"
+              })
+              .then(() => {
+                this.alert = true;
+                this.alertMessage = `${doc.data().title}: This Task is Overdue`;
+              })
+              .catch(error => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+                this.snackbar = true;
+                this.color = "red darken-4";
+                this.text = errorMessage;
+                this.snackText = "white--text";
+                this.right = true;
+                this.top = true;
+                this.dialog = false;
+                this.loading = false;
+                this.snackBtn = "white";
+                this.multi_line = true;
+              });
           }
         });
       })

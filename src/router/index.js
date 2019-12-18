@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import About from "../views/About.vue";
 import Home from "../views/Home.vue";
 import Dashboard from "../views/Dashboard.vue";
+import Sumary from "../views/Sumary.vue";
 import Todo from "../views/Todo.vue";
 import Profile from "../views/Profile.vue";
 import { fb } from "../firebaseConfig";
@@ -29,6 +30,11 @@ const router = new VueRouter({
       component: Dashboard,
       meta: { requiresAuth: true },
       children: [
+        {
+          path: "sumary",
+          name: "sumary",
+          component: Sumary
+        },
         {
           path: "todo",
           name: "todo",

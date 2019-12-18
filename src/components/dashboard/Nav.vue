@@ -74,6 +74,11 @@ export default {
     drawer: null,
     items: [
       {
+        title: "Dashboard",
+        icon: "mdi-view-dashboard",
+        route: "/dashboard/sumary"
+      },
+      {
         title: "Todos",
         icon: "mdi-bookmark-check",
         route: "/dashboard/todo"
