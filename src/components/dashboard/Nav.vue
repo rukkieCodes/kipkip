@@ -116,14 +116,6 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn color="white" block @click="logout" text>
-            <v-icon left>mdi-power</v-icon>
-            <span right class="text-capitalize">Sign Out</span>
-          </v-btn>
-        </div>
-      </template>
     </v-navigation-drawer>
   </nav>
 </template>

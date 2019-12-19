@@ -1,10 +1,10 @@
 <template>
-  <v-container class="mt-12">
+  <v-container fluid>
     <v-snackbar
       :color="color"
       v-model="snackbar"
-      :top="top"
-      :right="right"
+      top
+      right
       :timeout="5000"
       :multi-line="multi_line"
     >
@@ -13,17 +13,6 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-snackbar>
-    <v-alert
-      v-model="alert"
-      border="left"
-      close-text="Close Alert"
-      color="#f83e70"
-      dark
-      dismissible
-    >
-      {{ alertMessage }}
-    </v-alert>
-
     <v-layout class="ml-2" row wrap>
       <v-flex xs12 sm12 md12 lg12 xl12>
         <h1 class="subheading grey--text text--darken-2 font-weight-light">
@@ -49,11 +38,11 @@
         :key="todo.title"
         :class="`todo ${todo.state}`"
       >
-        <v-card-text class="ma-0 pax-1">
+        <v-card-text class="ma-0 my-2 pa-0 px-4 py-1">
           <v-layout class="my-0" row wrap>
             <v-flex xs1 sm1 md1 lg1 xl1>
               <v-btn
-                class="ma-0 pa-0"
+                class="ma-0 pa-0 mt-2"
                 left
                 @click="complete(todo)"
                 x-small
@@ -63,30 +52,51 @@
               </v-btn>
             </v-flex>
 
-            <v-flex xs4 sm4 md4 lg4 xl4>
-              <div class="grey--text text--darken-2">
-                <span class="body-2 ma-0 pa-0">{{ todo.title }}</span>
-              </div>
+            <v-flex class="pl-2" xs4 sm4 md4 lg6 xl6>
+              <v-layout class="mt-1" row wrap>
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <span>Task</span>
+                </v-flex>
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <span class="grey--text text--darken-2 body-2 ma-0 pa-0">{{
+                todo.title
+              }}</span>
+                </v-flex>
+              </v-layout>
             </v-flex>
 
-            <v-flex xs3 sm3 md3 lg3 xl3>
-              <div class="grey--text text--darken-2">
-                <span class="body-2 ma-0 pa-0">{{ todo.date }}</span>
-              </div>
+            <v-flex class="pl-2" xs3 sm3 md3 lg3 xl3>
+              <v-layout class="mt-1" row wrap>
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <span>Due Date</span>
+                </v-flex>
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <span class="grey--text text--darken-2 body-2 ma-0 pa-0">{{
+                todo.date
+              }}</span>
+                </v-flex>
+              </v-layout>
             </v-flex>
 
-            <v-flex xs3 sm1 md1 lg1 xl1>
-              <v-chip
+            <v-flex class="pl-2" xs3 sm1 md1 lg1 xl1>
+              <v-layout class="mt-1" row wrap>
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <span>State</span>
+                </v-flex>
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <v-chip
                 x-small
                 ripple
                 :class="`${todo.state} white--text caption ma-0 pa-0 px-2 py-2`"
               >
                 <span class="caption">{{ todo.state }}</span>
               </v-chip>
+                </v-flex>
+              </v-layout>
             </v-flex>
 
             <v-flex xs1 sm1 md1 lg1 xl1>
-              <v-btn class="mt-n1" @click="deleteTodo(todo)" icon>
+              <v-btn class="ma-0 pa-0 mt-2" @click="deleteTodo(todo)" icon>
                 <v-icon small class="red--text text--darken-5"
                   >mdi-trash-can</v-icon
                 >
@@ -166,8 +176,6 @@ export default {
           this.text = "Task Successfully Deleted";
           this.snackText = "white--text";
           this.snackBtn = "white";
-          this.top = true;
-          this.right = true;
           this.multi_line = false;
         })
         .catch(error => {
@@ -177,8 +185,6 @@ export default {
           this.color = "red darken-4";
           this.text = errorMessage;
           this.snackText = "white--text";
-          this.right = true;
-          this.top = true;
           this.dialog = false;
           this.loading = false;
           this.snackBtn = "white";
@@ -206,8 +212,14 @@ export default {
                 state: "overdue"
               })
               .then(() => {
-                this.alert = true;
-                this.alertMessage = `${doc.data().title}: This Task is Overdue`;
+                this.snackbar = true;
+                this.color = "#f83e70";
+                this.snackText = "white--text";
+                this.text = `${doc.data().title}: This Task is Overdue`;
+                this.dialog = false;
+                this.loading = false;
+                this.snackBtn = "white";
+                this.multi_line = true;
               })
               .catch(error => {
                 const errorMessage = error.message;
@@ -216,8 +228,6 @@ export default {
                 this.color = "red darken-4";
                 this.text = errorMessage;
                 this.snackText = "white--text";
-                this.right = true;
-                this.top = true;
                 this.dialog = false;
                 this.loading = false;
                 this.snackBtn = "white";
@@ -230,7 +240,7 @@ export default {
         console.log("Error getting documents: ", error);
       });
 
-      console.log(fb.auth().currentUser.uid);
+    console.log(fb.auth().currentUser.uid);
   }
 };
 </script>
