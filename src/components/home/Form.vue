@@ -5,27 +5,13 @@
         <v-btn
           depressed
           tile
-          class="white--text text-capitalize"
-          color="indigo accent-4"
+          class="text-capitalize"
+          color="white"
+          outlined
           dark
           @click="dialog1 = true"
           >Get Started</v-btn
         >
-
-        <v-snackbar
-          :color="color"
-          v-model="snackbar"
-          top
-          right
-          class="my-1"
-          :timeout="5000"
-          :multi-line="true"
-        >
-          <span :class="snackText">{{ text }}</span>
-          <v-btn right :color="snackBtn" icon @click="snackbar = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-snackbar>
       </v-flex>
     </v-layout>
 
@@ -35,80 +21,65 @@
         :fullscreen="$vuetify.breakpoint.xsOnly"
         v-model="dialog1"
         persistent
+        transition="slide-y-reverse-transition"
       >
-        <v-card>
-          <v-card-title>
-            <span class="headline grey--text text--darken-4">Sign In</span>
-          </v-card-title>
+        <v-card class="elevation-12">
+          <v-snackbar
+            :color="color"
+            v-model="snackbar"
+            top
+            class="my-1"
+            :timeout="5000"
+            :multi-line="true"
+          >
+            <span :class="snackText">{{ text }}</span>
+            <v-btn right :color="snackBtn" icon @click="snackbar = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-snackbar>
+          <v-toolbar src="../../assets/bg4.png" dark flat>
+            <v-toolbar-title class="display-1 font-weight-thin"
+              >Sign In</v-toolbar-title
+            >
+            <v-spacer />
+          </v-toolbar>
           <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    label="Email*"
-                    color="grey darken-4"
-                    class="grey--text text--darken-4"
-                    v-model="lEmail"
-                  >
-                    <v-icon class="grey--text text--darken-4" slot="prepend-inner"
-                      >mdi-email</v-icon
-                    >
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    color="grey darken-4"
-                    class="grey--text text--darken-4"
-                    label="Password*"
-                    type="password"
-                    v-model="lPassword"
-                  >
-                    <v-icon
-                      class="grey--text text--darken-4"
-                      slot="prepend-inner"
-                      >mdi-key</v-icon
-                    >
-                  </v-text-field>
-                  <div>
-                    <p
-                      @click="openDialog2"
-                      class="grey--text text--darken-4"
-                      style="cursor: pointer;"
-                    >
-                      <b>Click to Sign Up</b>
-                    </p>
-                  </div>
-                </v-col>
-              </v-row>
+            <v-form>
+              <v-text-field
+                label="Login"
+                name="login"
+                v-model="lEmail"
+                prepend-icon="mdi-email"
+                type="email"
+              />
 
-              <v-row justify="center">
-                <v-card-actions>
-                  <div class="flex-grow-1"></div>
-                  <v-btn
-                    dark
-                    color="grey darken-4"
-                    small
-                    depressed
-                    @click="dialog1 = false"
-                  >
-                    <v-icon left>mdi-close</v-icon>
-                    <span class="text-capitalize">Close</span>
-                  </v-btn>
-                  <v-btn
-                    @click="signin"
-                    dark
-                    color="grey darken-4"
-                    small
-                    depressed
-                    :loading="loading2"
-                  >
-                    <v-icon left>mdi-location-enter</v-icon>
-                    <span class="text-capitalize">Sign In</span>
-                  </v-btn>
-                </v-card-actions>
-              </v-row>
-            </v-container>
+              <v-text-field
+                id="password"
+                label="Password"
+                name="password"
+                v-model="lPassword"
+                prepend-icon="mdi-lock"
+                type="password"
+              />
+            </v-form>
+            <span
+              @click="openDialog2"
+              class="grey--text text--darken-4"
+              style="cursor: pointer;"
+              >Don't have an account? <b>Sign Up Now</b></span
+            >
           </v-card-text>
+          <v-card-actions>
+            <v-layout justify-center>
+              <v-btn @click="closeDialog1" icon>
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+
+              <v-btn @click="signin" :loading="loading2" icon>
+                <v-icon>mdi-location-enter</v-icon>
+              </v-btn>
+            </v-layout>
+          </v-card-actions>
         </v-card>
       </v-dialog>
 
@@ -118,84 +89,65 @@
         :fullscreen="$vuetify.breakpoint.xsOnly"
         v-model="dialog2"
         persistent
+        transition="slide-y-transition"
       >
-        <v-card>
-          <v-card-title>
-            <span class="headline grey--text text--darken-4">Sign Up</span>
-          </v-card-title>
+        <v-card class="elevation-12">
+          <v-snackbar
+            :color="color"
+            v-model="snackbar"
+            top
+            class="my-1"
+            :timeout="5000"
+            :multi-line="true"
+          >
+            <span :class="snackText">{{ text }}</span>
+            <v-btn right :color="snackBtn" icon @click="snackbar = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-snackbar>
+          <v-toolbar src="../../assets/bg4.png" dark flat>
+            <v-toolbar-title class="display-1 font-weight-thin"
+              >Sign Up</v-toolbar-title
+            >
+            <v-spacer />
+          </v-toolbar>
           <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="email"
-                    label="Email*"
-                    color="grey darken-4"
-                    class="grey--text text--darken-4"
-                    required
-                  >
-                    <v-icon
-                      class="grey--text text--darken-4"
-                      slot="prepend-inner"
-                      >mdi-email</v-icon
-                    >
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="password"
-                    label="Password*"
-                    type="password"
-                    color="grey darken-4"
-                    class="grey--text text--darken-4"
-                    required
-                  >
-                    <v-icon
-                      class="grey--text text--darken-4"
-                      slot="prepend-inner"
-                      >mdi-key</v-icon
-                    >
-                  </v-text-field>
-                  <br />
-                  <div>
-                    <p
-                      @click="openDialog1"
-                      class="grey--text text--darken-3"
-                      style="cursor: pointer;"
-                    >
-                      <b>Click to Sign In!</b>
-                    </p>
-                  </div>
-                </v-col>
-              </v-row>
-              <v-row justify="center">
-                <v-card-actions>
-                  <div class="flex-grow-1"></div>
-                  <v-btn
-                    dark
-                    color="grey darken-4"
-                    depressed
-                    small
-                    @click="closeDialog2"
-                  >
-                    <v-icon left>mdi-close</v-icon>
-                    <span class="text-capitalize">Close</span>
-                  </v-btn>
-                  <v-btn
-                    @click="signUp"
-                    dark
-                    color="grey darken-4"
-                    depressed
-                    small
-                    :loading="loading1"
-                  >
-                    <v-icon left>mdi-location-enter</v-icon>
-                    <span class="text-capitalize">Sign Up</span>
-                  </v-btn>
-                </v-card-actions>
-              </v-row>
-            </v-container>
+            <v-form>
+              <v-text-field
+                label="Login"
+                name="login"
+                v-model="email"
+                prepend-icon="mdi-email"
+                type="email"
+              />
+
+              <v-text-field
+                id="password"
+                label="Password"
+                name="password"
+                v-model="password"
+                prepend-icon="mdi-lock"
+                type="password"
+              />
+            </v-form>
+            <span
+              @click="openDialog1"
+              class="grey--text text--darken-4"
+              style="cursor: pointer;"
+              >Already have an account? <b>Sign In</b></span
+            >
           </v-card-text>
+          <v-card-actions>
+            <v-layout justify-center>
+              <v-btn @click="closeDialog2" icon>
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+
+              <v-btn @click="signUp" :loading="loading1" icon>
+                <v-icon>mdi-location-enter</v-icon>
+              </v-btn>
+            </v-layout>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </v-layout>
@@ -244,7 +196,7 @@ export default {
         .signInWithEmailAndPassword(this.lEmail, this.lPassword)
         .then(user => {
           console.log("Welcome Back: ", user.user.email);
-          this.$router.replace("/dashboard/file");
+          this.$router.replace("/dashboard/Sumary");
         })
         .catch(error => {
           const errorCode = error.code;
@@ -254,16 +206,15 @@ export default {
             // alert("wrong Password");
             this.snackbar = true;
             this.text = "Wrong Password";
-            this.color = "red darken-4";
+            this.color = "red darken-5";
             this.snackText = "white--text";
             this.snackBtn = "white";
           } else {
-            // alert(errorMessage);
             this.snackbar = true;
             this.text = errorMessage;
-            this.color = "red darken-4";
+            this.color = "red darken-5";
             this.snackText = "white--text";
-            this.snackBtn = "white"
+            this.snackBtn = "white";
           }
           console.log(error);
         });
@@ -275,7 +226,7 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(user => {
           console.log(user);
-          this.$router.replace("/dashboard/file");
+          this.$router.replace("/dashboard/Sumary");
         })
         .catch(error => {
           const errorCode = error.code;
@@ -287,14 +238,14 @@ export default {
             this.text = "Sorry Your Password is Week";
             this.color = "red darken-4";
             this.snackText = "white--text";
-            this.snackBtn = "white"
+            this.snackBtn = "white";
           } else {
             // alert(errorMessage);
             this.snackbar = true;
             this.text = errorMessage;
             this.color = "red darken-4";
             this.snackText = "white--text";
-            this.snackBtn = "white"
+            this.snackBtn = "white";
           }
           // console.log(error);
         });

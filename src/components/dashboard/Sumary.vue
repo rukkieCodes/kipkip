@@ -200,7 +200,7 @@
 </template>
 
 <script>
-import { db } from "../../firebaseConfig";
+import { db, fb } from "../../firebaseConfig";
 export default {
   data: () => ({
     labels: ["ongoing", "completed", "overdue"],
@@ -212,8 +212,9 @@ export default {
   }),
 
   firestore() {
+    const user = fb.auth().currentUser.uid;
     return {
-      todos: db.collection("todos")
+      todos: db.collection("todos").where("author", "==", user)
     };
   },
 

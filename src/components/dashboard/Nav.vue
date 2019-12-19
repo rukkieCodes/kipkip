@@ -1,59 +1,120 @@
 <template>
   <nav>
-    <v-toolbar flat color="grey lighten-5" class="mt-n3 toolbar">
+    <v-app-bar flat color="grey lighten-5" dark>
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
-        class="gery"
+        class="grey--text text--darken-3"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title style="display:flex;">
-        <p class="my-2 mx-2 grey--text text--darken-3">KipKip</p>
-      </v-toolbar-title>
-      <div class="flex-grow-1"></div>
-    </v-toolbar>
 
-    <v-navigation-drawer v-model="drawer" app color="#9652ff">
-      <v-list-item>
-        <v-list-item-content>
-          <v-layout column align-center>
-            <v-flex class="my-5">
-              <v-avatar size="100">
-                <v-img src="../../assets/guy.jpg"></v-img>
-              </v-avatar>
-            </v-flex>
-          </v-layout>
-          <v-list-item-title class="white--text caption">
-            <v-layout class="ml-5" justify-center row wrap>
-              <v-flex xs12 sm12 md12 lg12 xl12><span>Loged in as</span></v-flex>
-              <v-flex xs12 sm12 md12 lg12 xl12
-                ><span>{{ email }}</span></v-flex
-              >
+      <v-toolbar-title class="grey--text text--darken-3"
+        >Rukieo</v-toolbar-title
+      >
+
+      <v-spacer></v-spacer>
+      <v-menu left bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn class="grey--text text--darken-3" icon v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list shaped dense>
+          <v-list-item-group color="primary">
+            <v-list-item
+              v-for="item in items"
+              :key="item.title"
+              router
+              :to="item.route"
+              link
+            >
+              <v-list-item-icon>
+                <v-icon class="grey--text text--darken-3 font-weight-light">{{
+                  item.icon
+                }}</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title
+                  class="grey--text text--darken-3 font-weight-light"
+                  >{{ item.title }}</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item block @click="logout" class="red" dense>
+              <v-list-item-icon>
+                <v-icon class="white--text text--darken-3 font-weight-light"
+                  >mdi-power</v-icon
+                >
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title
+                  class="white--text text--darken-3 font-weight-light"
+                  >Sign Out</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-menu>
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      color="#9652ff"
+      dark
+      src="../../assets/nav1.jpg"
+    >
+      <v-list>
+        <v-list-item>
+          <v-list-item-content>
+            <v-layout column align-center>
+              <v-flex class="my-5">
+                <v-avatar size="100">
+                  <v-img src="../../assets/guy.jpg"></v-img>
+                </v-avatar>
+              </v-flex>
             </v-layout>
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+            <v-list-item-title class="white--text caption">
+              <v-layout class="ml-5" justify-center row wrap>
+                <v-flex xs12 sm12 md12 lg12 xl12
+                  ><span>Loged in as</span></v-flex
+                >
+                <v-flex xs12 sm12 md12 lg12 xl12
+                  ><span>{{ email }}</span></v-flex
+                >
+              </v-layout>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
 
       <v-divider></v-divider>
 
-      <v-list dense>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          router
-          :to="item.route"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon class="white--text font-weight-light">{{
-              item.icon
-            }}</v-icon>
-          </v-list-item-icon>
+      <v-list shaped dense>
+        <v-list-item-group color="primary">
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            router
+            :to="item.route"
+            link
+          >
+            <v-list-item-icon>
+              <v-icon class="white--text font-weight-light">{{
+                item.icon
+              }}</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title class="white--text font-weight-light">{{
-              item.title
-            }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="white--text font-weight-light">{{
+                item.title
+              }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
       <template v-slot:append>
         <div class="pa-2">

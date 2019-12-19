@@ -102,7 +102,7 @@
 
 <script>
 import Dialog from "./Dialog";
-import { db } from "../../firebaseConfig";
+import { db, fb } from "../../firebaseConfig";
 export default {
   data: () => ({
     order: [],
@@ -124,9 +124,10 @@ export default {
   },
 
   firestore() {
+    const user = fb.auth().currentUser.uid;
     return {
       todos: db.collection("todos"),
-      order: db.collection("todos").orderBy("title")
+      order: db.collection("todos").where("author", "==", user)
     };
   },
 
@@ -228,6 +229,8 @@ export default {
       .catch(error => {
         console.log("Error getting documents: ", error);
       });
+
+      console.log(fb.auth().currentUser.uid);
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="todo">
     <Todo />
   </div>
 </template>
@@ -9,7 +9,7 @@
 import Todo from "../components/dashboard/Todo";
 
 export default {
-  name: "home",
+  name: "todo",
   components: {
     Todo
   }

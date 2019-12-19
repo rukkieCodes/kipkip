@@ -4,110 +4,12 @@
       <Navbar />
       <v-content>
         <section>
-          <v-parallax src="../../assets/hero.jpeg" height="600">
+          <v-parallax src="../../assets/bg4.png" height="600">
             <v-layout column align-center justify-center class="white--text">
               <img src="../../assets/logo.png" alt="Vuetify.js" height="200" />
               <h1 class="white--text mb-2 display-1 text-center">Rukieo</h1>
               <div class="subheading mb-4 text-center">{{ currentDate }}</div>
               <Form class="text-center" />
-            </v-layout>
-          </v-parallax>
-        </section>
-
-        <section>
-          <v-layout column wrap class="my-12" align-center>
-            <v-flex xs12 sm4 class="my-4">
-              <div class="text-center">
-                <h2 class="headline">The best way to start developing</h2>
-                <span class="subheading">
-                  Cras facilisis mi vitae nunc
-                </span>
-              </div>
-            </v-flex>
-            <v-flex xs12>
-              <v-container grid-list-xl>
-                <v-layout row wrap align-center>
-                  <v-flex xs12 md4>
-                    <v-card flat class="transparent">
-                      <v-card-text class="text-center">
-                        <v-icon x-large class="blue--text text--lighten-2"
-                          >mdi-palette</v-icon
-                        >
-                      </v-card-text>
-                      <v-card-title primary-title class="layout justify-center">
-                        <div class="headline text-center">Material Design</div>
-                      </v-card-title>
-                      <v-card-text>
-                        Cras facilisis mi vitae nunc lobortis pharetra. Nulla
-                        volutpat tincidunt ornare. Pellentesque habitant morbi
-                        tristique senectus et netus et malesuada fames ac turpis
-                        egestas. Nullam in aliquet odio. Aliquam eu est vitae
-                        tellus bibendum tincidunt. Suspendisse potenti.
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                  <v-flex xs12 md4>
-                    <v-card flat class="transparent">
-                      <v-card-text class="text-center">
-                        <v-icon x-large class="blue--text text--lighten-2"
-                          >mdi-flash</v-icon
-                        >
-                      </v-card-text>
-                      <v-card-title primary-title class="layout justify-center">
-                        <div class="headline">Fast development</div>
-                      </v-card-title>
-                      <v-card-text>
-                        Cras facilisis mi vitae nunc lobortis pharetra. Nulla
-                        volutpat tincidunt ornare. Pellentesque habitant morbi
-                        tristique senectus et netus et malesuada fames ac turpis
-                        egestas. Nullam in aliquet odio. Aliquam eu est vitae
-                        tellus bibendum tincidunt. Suspendisse potenti.
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                  <v-flex xs12 md4>
-                    <v-card flat class="transparent">
-                      <v-card-text class="text-center">
-                        <v-icon x-large class="blue--text text--lighten-2"
-                          >mdi-wrench</v-icon
-                        >
-                      </v-card-text>
-                      <v-card-title primary-title class="layout justify-center">
-                        <div class="headline text-center">
-                          Completely Open Sourced
-                        </div>
-                      </v-card-title>
-                      <v-card-text>
-                        Cras facilisis mi vitae nunc lobortis pharetra. Nulla
-                        volutpat tincidunt ornare. Pellentesque habitant morbi
-                        tristique senectus et netus et malesuada fames ac turpis
-                        egestas. Nullam in aliquet odio. Aliquam eu est vitae
-                        tellus bibendum tincidunt. Suspendisse potenti.
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-flex>
-          </v-layout>
-        </section>
-
-        <section>
-          <v-parallax src="../../assets/section.jpg" height="380">
-            <v-layout column align-center justify-center>
-              <div class="headline white--text mb-4 text-center">
-                Web development has never been easier
-              </div>
-              <em>Kick-start your application today</em>
-              <v-btn
-                class="mt-12"
-                color="blue lighten-2"
-                dark
-                large
-                href="/pre-made-themes"
-              >
-                Get Started
-              </v-btn>
             </v-layout>
           </v-parallax>
         </section>
@@ -146,7 +48,7 @@
                         >
                       </v-list-item-action>
                       <v-list-item-content>
-                        <v-list-item-title>777-867-5309</v-list-item-title>
+                        <v-list-item-title>+2347 0113 41999</v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>
                     <v-list-item>
@@ -156,7 +58,9 @@
                         >
                       </v-list-item-action>
                       <v-list-item-content>
-                        <v-list-item-title>Chicago, US</v-list-item-title>
+                        <v-list-item-title
+                          >River State, Nigeria</v-list-item-title
+                        >
                       </v-list-item-content>
                     </v-list-item>
                     <v-list-item>
@@ -167,7 +71,7 @@
                       </v-list-item-action>
                       <v-list-item-content>
                         <v-list-item-title
-                          >john@vuetifyjs.com</v-list-item-title
+                          >rukkiecodes@gmail.com</v-list-item-title
                         >
                       </v-list-item-content>
                     </v-list-item>
@@ -181,21 +85,20 @@
         <v-footer color="blue darken-2">
           <v-layout row wrap align-center>
             <v-flex xs12>
-              <div class="white--text ml-4">
-                Made with
-                <v-icon class="red--text">mdi-heart</v-icon>
-                by
-                <a
-                  class="white--text"
-                  href="https://vuetifyjs.com"
-                  target="_blank"
-                  >Vuetify</a
-                >
-                and
-                <a class="white--text" href="https://github.com/vwxyzjn"
-                  >Costa Huang</a
-                >
-              </div>
+              <v-card flat tile width="100%" class="transparent text-center">
+                <v-card-text>
+                  <v-icon small class="white--text"
+                    >mdi-copyright</v-icon
+                  >
+
+                  <span class="mx-1 white--text text--darken-4">{{
+                    new Date().getFullYear()
+                  }}</span>
+                  <strong class="subtitle-1 white--text text--darken-4"
+                    >RukkieCodes</strong
+                  >
+                </v-card-text>
+              </v-card>
             </v-flex>
           </v-layout>
         </v-footer>
@@ -221,12 +124,12 @@ export default {
 
   methods: {
     updateCurrentDate() {
-      this.currentDate = moment().format('LLLL');
+      this.currentDate = moment().format("LLLL");
     }
   },
 
   created() {
-    this.currentDate = moment().format('LLLL');
+    this.currentDate = moment().format("LLLL");
     setInterval(() => this.updateCurrentDate(), 1 * 1000);
   }
 };
