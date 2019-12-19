@@ -4,11 +4,12 @@
       <v-flex>
         <v-btn
           depressed
+          tile
           class="white--text text-capitalize"
           color="indigo accent-4"
           dark
           @click="dialog1 = true"
-          >Sign In</v-btn
+          >Get Started</v-btn
         >
 
         <v-snackbar
