@@ -3,8 +3,7 @@
     <v-snackbar
       :color="color"
       v-model="snackbar"
-      :top="top"
-      :right="right"
+      top
       :timeout="5000"
       :multi-line="multi_line"
     >
@@ -137,8 +136,6 @@ export default {
           this.color = "#3cd1c2";
           this.text = "Task Successfuly Added";
           this.snackText = "white--text";
-          this.right = true;
-          this.top = true;
           this.dialog = false;
           this.loading = false;
           this.snackBtn = "white";
@@ -151,8 +148,6 @@ export default {
           this.color = "red darken-4";
           this.text = errorMessage;
           this.snackText = "white--text";
-          this.right = true;
-          this.top = true;
           this.dialog = false;
           this.loading = false;
           this.snackBtn = "white";

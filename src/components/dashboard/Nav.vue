@@ -70,17 +70,31 @@
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-layout column align-center>
-              <v-flex class="my-5">
-                <v-avatar size="100">
-                  <v-img src="../../assets/guy.jpg"></v-img>
+            <v-layout
+              v-for="profile in read"
+              :key="profile.author"
+              column
+              align-center
+            >
+              <v-flex xs12 sm12 md12 lg12 xl12 class="my-5">
+                <v-avatar
+                  v-for="pix in profile.picture"
+                  :key="pix.id"
+                  size="100"
+                >
+                  <v-img :src="pix"></v-img>
                 </v-avatar>
+              </v-flex>
+              <v-flex xs12 sm12 md12 lg12 xl12>
+                <p class="text-center">
+                  {{ profile.firstName }} {{ profile.lastName }}
+                </p>
               </v-flex>
             </v-layout>
             <v-list-item-title class="white--text caption">
               <v-layout class="ml-5" justify-center row wrap>
                 <v-flex xs12 sm12 md12 lg12 xl12
-                  ><span>Loged in as</span></v-flex
+                  ><span>Loged in as:</span></v-flex
                 >
                 <v-flex xs12 sm12 md12 lg12 xl12
                   ><span>{{ email }}</span></v-flex
@@ -121,9 +135,10 @@
 </template>
 
 <script>
-import { fb } from "../../firebaseConfig";
+import { fb, db } from "../../firebaseConfig";
 export default {
   data: () => ({
+    read: [],
     drawer: null,
     items: [
       {
@@ -132,23 +147,27 @@ export default {
         route: "/dashboard/sumary"
       },
       {
-        title: "Todos",
+        title: "Todo List",
         icon: "mdi-bookmark-check",
         route: "/dashboard/todo"
       },
       {
-        title: "Profile",
+        title: "User Profile",
         icon: "mdi-account",
         route: "/dashboard/profile"
-      },
-      {
-        title: "Settings",
-        icon: "mdi-settings",
-        route: "/dashboard/settings"
       }
     ],
     email: null
   }),
+
+  firestore() {
+    const user = fb.auth().currentUser.uid;
+    return {
+      todos: db.collection("profile"),
+      read: db.collection("profile").where("author", "==", user)
+    };
+  },
+
   methods: {
     logout() {
       fb.auth()
@@ -167,11 +186,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.toolbar {
-  position: fixed;
-  z-index: 1;
-  width: 100vw;
-}
-</style>
