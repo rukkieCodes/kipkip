@@ -8,9 +8,9 @@
       </v-flex>
     </v-layout>
 
-    <v-layout row wrap>
+    <v-layout class="mt-n10" row wrap>
       <!-- days -->
-      <v-flex class="px-5" xs12 sm12 md4 lg4 xl4>
+      <v-flex class="px-5 mt-10" xs12 sm12 md4 lg4 xl4>
         <v-card class="mt-4 mx-auto" max-width="100%">
           <v-sheet
             class="v-sheet--offset mx-auto"
@@ -44,7 +44,7 @@
       </v-flex>
 
       <!-- month -->
-      <v-flex class="px-5" xs12 sm6 md4 lg4 xl4>
+      <v-flex class="px-5 mt-10" xs12 sm6 md4 lg4 xl4>
         <v-card class="mt-4 mx-auto" max-width="100%">
           <v-sheet
             class="v-sheet--offset mx-auto"
@@ -78,7 +78,7 @@
       </v-flex>
 
       <!-- completed -->
-      <v-flex class="px-5" xs12 sm6 md4 lg4 xl4>
+      <v-flex class="px-5 mt-10" xs12 sm6 md4 lg4 xl4>
         <v-card class="mt-4 mx-auto" max-width="100%">
           <v-sheet
             class="v-sheet--offset mx-auto"
@@ -112,10 +112,9 @@
       </v-flex>
     </v-layout>
 
-    
-    <v-layout class="mt-12" row wrap>
+    <v-layout class="mt-5" row wrap>
       <!-- For Total Tasks -->
-      <v-flex class="px-5" xs12 xm6 md4 lg3 xl3>
+      <v-flex class="px-5 mt-12" xs12 xm6 md4 lg3 xl3>
         <v-card raised class="mt-4 mx-auto" max-width="100%">
           <v-layout row wrap>
             <v-flex xs4 sm4 md4 lg4 xl4>
@@ -170,8 +169,9 @@
           </v-layout>
         </v-card>
       </v-flex>
+
       <!-- For completed Tasks -->
-      <v-flex class="px-5" xs12 xm6 md4 lg3 xl3>
+      <v-flex class="px-5 mt-12" xs12 xm6 md4 lg3 xl3>
         <v-card raised class="mt-4 mx-auto" max-width="100%">
           <v-layout row wrap>
             <v-flex xs4 sm4 md4 lg4 xl4>
@@ -228,7 +228,7 @@
       </v-flex>
 
       <!-- For ongoing Tasks -->
-      <v-flex class="px-5" xs12 xm6 md4 lg3 xl3>
+      <v-flex class="px-5 mt-12" xs12 xm6 md4 lg3 xl3>
         <v-card raised class="mt-4 mx-auto" max-width="100%">
           <v-layout row wrap>
             <v-flex xs4 sm4 md4 lg4 xl4>
@@ -285,7 +285,7 @@
       </v-flex>
 
       <!-- For overdue Tasks -->
-      <v-flex class="px-5" xs12 xm6 md4 lg3 xl3>
+      <v-flex class="px-5 mt-12" xs12 xm6 md4 lg3 xl3>
         <v-card raised class="mt-4 mx-auto" max-width="100%">
           <v-layout row wrap>
             <v-flex xs4 sm4 md4 lg4 xl4>
@@ -341,6 +341,131 @@
         </v-card>
       </v-flex>
     </v-layout>
+
+    <v-layout class="mt-12" row wrap>
+      <!-- For ongoing tasks -->
+      <v-flex class="px-5 mt-10" xs12 sm12 md12 lg4 xl4>
+        <v-card class="mt-4 mx-auto" max-width="100%">
+          <v-sheet
+            class="v-sheet--offset mx-auto"
+            color="cyan"
+            elevation="12"
+            max-width="calc(100% - 32px)"
+          >
+            <v-card color="#ffaa2c" flat width="100%" height="100%">
+              <v-card-text>
+                <div class="text-left headline font-weight-thin white--text">
+                  Ongoing Tasks
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-sheet>
+
+          <v-card-text class="pt-0">
+            <v-simple-table :fixed-header="true" height="300">
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th class="text-left">Title</th>
+                    <th class="text-left">Due Date</th>
+                    <th class="text-left">Date Added</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="todo in ongoingTask" :key="todo.key">
+                    <td>{{ todo.title }}</td>
+                    <td>{{ todo.date }}</td>
+                    <td>{{ todo.createdAt }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+
+      <!-- For completed tasks -->
+      <v-flex class="px-5 mt-10" xs12 sm12 md12 lg4 xl4>
+        <v-card class="mt-4 mx-auto" max-width="100%">
+          <v-sheet
+            class="v-sheet--offset mx-auto"
+            color="#3cd1c2"
+            elevation="12"
+            max-width="calc(100% - 32px)"
+          >
+            <v-card color="#3cd1c2" flat width="100%" height="100%">
+              <v-card-text>
+                <div class="text-left headline font-weight-thin white--text">
+                  Completed Tasks
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-sheet>
+
+          <v-card-text class="pt-0">
+            <v-simple-table :fixed-header="true" height="300">
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th class="text-left">Title</th>
+                    <th class="text-left">Due Date</th>
+                    <th class="text-left">Date Added</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="todo in completedTask" :key="todo.key">
+                    <td>{{ todo.title }}</td>
+                    <td>{{ todo.date }}</td>
+                    <td>{{ todo.createdAt }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+
+      <!-- For overdue tasks -->
+      <v-flex class="px-5 mt-10" xs12 sm12 md12 lg4 xl4>
+        <v-card class="mt-4 mx-auto" max-width="100%">
+          <v-sheet
+            class="v-sheet--offset mx-auto"
+            color="#3cd1c2"
+            elevation="12"
+            max-width="calc(100% - 32px)"
+          >
+            <v-card color="#f83e70" flat width="100%" height="100%">
+              <v-card-text>
+                <div class="text-left headline font-weight-thin white--text">
+                  Overdue Tasks
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-sheet>
+
+          <v-card-text class="pt-0">
+            <v-simple-table :fixed-header="true" height="300">
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th class="text-left">Title</th>
+                    <th class="text-left">Due Date</th>
+                    <th class="text-left">Date Added</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="todo in overdueTask" :key="todo.key">
+                    <td>{{ todo.title }}</td>
+                    <td>{{ todo.date }}</td>
+                    <td>{{ todo.createdAt }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -348,6 +473,10 @@
 import { db, fb } from "../../firebaseConfig";
 export default {
   data: () => ({
+    todos: [],
+    ongoingTask: [],
+    completedTask: [],
+    overdueTask: [],
     labels1: ["M", "T", "W", "T", "F", "S", "S"],
     value1: [200, 675, 410, 390, 310, 460, 250],
     labels2: [
@@ -381,6 +510,7 @@ export default {
   },
 
   created() {
+    //For counting total
     this.$firestore.todos.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
@@ -390,7 +520,7 @@ export default {
       });
     });
 
-    //For completed
+    //For counting completed
     this.$firestore.todos
       .where("state", "==", "completed")
       .get()
@@ -407,7 +537,7 @@ export default {
         console.log(error);
       });
 
-    //For ongoing
+    //For counting ongoing
     this.$firestore.todos
       .where("state", "==", "ongoing")
       .get()
@@ -424,7 +554,7 @@ export default {
         console.log(error);
       });
 
-    //For ongoing
+    //For counting ongoing
     this.$firestore.todos
       .where("state", "==", "overdue")
       .get()
@@ -439,6 +569,45 @@ export default {
       })
       .catch(error => {
         console.log(error);
+      });
+
+    //get ongoing tasks
+    this.$firestore.todos
+      .where("state", "==", "ongoing")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log("Ongoing Tasks", doc.id, " => ", doc.data());
+          this.ongoingTask.push(doc.data());
+          console.log("these are the list of ongoing tasks", this.ongoingTask);
+        });
+      });
+
+    //get completed tasks
+    this.$firestore.todos
+      .where("state", "==", "completed")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log("Ongoing Tasks", doc.id, " => ", doc.data());
+          this.completedTask.push(doc.data());
+          console.log("these are the list of completed tasks", this.ongoingTask);
+        });
+      });
+
+    //get overdue tasks
+    this.$firestore.todos
+      .where("state", "==", "overdue")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log("Ongoing Tasks", doc.id, " => ", doc.data());
+          this.overdueTask.push(doc.data());
+          console.log("these are the list of overdue tasks", this.ongoingTask);
+        });
       });
   }
 };
