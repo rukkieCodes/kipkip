@@ -71,23 +71,19 @@
         <v-list-item>
           <v-list-item-content>
             <v-layout
-              v-for="profile in read"
-              :key="profile.author"
+              v-for="user in order"
+              :key="user.author"
               column
               align-center
             >
               <v-flex xs12 sm12 md12 lg12 xl12 class="my-5">
-                <v-avatar
-                  v-for="pix in profile.picture"
-                  :key="pix.id"
-                  size="100"
-                >
-                  <v-img :src="pix"></v-img>
+                <v-avatar size="100">
+                  <v-img :src="user.picture"></v-img>
                 </v-avatar>
               </v-flex>
               <v-flex xs12 sm12 md12 lg12 xl12>
                 <p class="text-center">
-                  {{ profile.firstName }} {{ profile.lastName }}
+                  {{ user.firstName }} {{ user.lastName }}
                 </p>
               </v-flex>
             </v-layout>
@@ -163,8 +159,8 @@ export default {
   firestore() {
     const user = fb.auth().currentUser.uid;
     return {
-      todos: db.collection("profile"),
-      read: db.collection("profile").where("author", "==", user)
+      profiles: db.collection("profiles"),
+      order: db.collection("profiles").where("authorId", "==", user)
     };
   },
 

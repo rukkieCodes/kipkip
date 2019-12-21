@@ -5,14 +5,14 @@ require("firebase/firestore");
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBJrDsNrfgC1k23L2IJrJ3Ck_AkrKqhSaY",
-    authDomain: "rukieo.firebaseapp.com",
-    databaseURL: "https://rukieo.firebaseio.com",
-    projectId: "rukieo",
-    storageBucket: "rukieo.appspot.com",
-    messagingSenderId: "316401338361",
-    appId: "1:316401338361:web:1aaafff45a5eb7df495f28",
-    measurementId: "G-9369JH55BW"
+    apiKey: "AIzaSyDYQjf1BKsH-In3EWdxccgtJz7eaIlho2E",
+    authDomain: "keeptuk.firebaseapp.com",
+    databaseURL: "https://keeptuk.firebaseio.com",
+    projectId: "keeptuk",
+    storageBucket: "keeptuk.appspot.com",
+    messagingSenderId: "329682984792",
+    appId: "1:329682984792:web:0014811d7f194bd16a0f2d",
+    measurementId: "G-5SVSY35HKF"
 };
 // Initialize Firebase
 const fb = firebase.initializeApp(firebaseConfig);
